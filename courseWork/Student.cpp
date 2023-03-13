@@ -17,7 +17,7 @@ private:
 	string gender;
 	resAllSession session;
 public:
-	Student(string _studentName, birthday _studentBirthday, int _admissionYear, string _faculty, string _department, string _group, int _recordBookId, string _gender)
+	Student(string _studentName, birthday _studentBirthday, int _admissionYear, string _faculty, string _department, string _group, int _recordBookId, string _gender, resAllSession _session)
 	{
 		studentName = _studentName;
 		studentBirthday = _studentBirthday;
@@ -27,7 +27,7 @@ public:
 		group = _group;
 		recordBookId = _recordBookId;
 		gender = _gender;
-		//session = _session;
+		session = _session;
 	}
 	void setStudentName(string _name)
 	{
@@ -60,6 +60,10 @@ public:
 	void setGender(string _gender)
 	{
 		gender = _gender;
+	}
+	void setSession(resAllSession _session)
+	{
+		session = _session;
 	}
 	string getName()
 	{
