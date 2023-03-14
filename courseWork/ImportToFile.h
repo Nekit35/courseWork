@@ -4,7 +4,7 @@
 #include <string>
 #include "Student.cpp"
 using namespace std;
-class ImportToFile
+class ImportToFile:public Student
 {
 private:
 	string filename;
@@ -14,7 +14,7 @@ public:
 	{
 		filename = _fileName;
 	}
-	void recordToDAtaBase(Student::Student)
+	void recordToDAtaBase()
 	{
 
 	}
