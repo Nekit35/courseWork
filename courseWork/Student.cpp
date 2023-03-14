@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include "structures.h"
+#include "structures.h"
 using namespace std;
 class Student
 {
@@ -65,8 +66,42 @@ public:
 	{
 		session = _session;
 	}
-	string getName()
+
+
+	string getStudentName()
 	{
 		return studentName;
+	}
+	birthday getStudentBirthday()
+	{
+		return studentBirthday;
+	}
+	int getAdmissionYear()
+	{
+		return admissionYear;
+	}
+	string getFaculty()
+	{
+		return faculty;
+	}
+	string getDepartment()
+	{
+		return department;
+	}
+	string getGroup()
+	{
+		return group;
+	}
+	int getRecordBookId()
+	{
+		return recordBookId;
+	}
+	string getGender()
+	{
+		return gender;
+	}
+	resAllSession getSession()
+	{
+		return session;
 	}
 };

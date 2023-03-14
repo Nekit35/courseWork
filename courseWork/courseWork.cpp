@@ -25,7 +25,6 @@ int main()
 	resSession res2 = { 2,{subj3, subj4} };
 	resAllSession reaall = {{res1, res2}};
 	Student s1("Алексей Русаков", { 12, 12, 1980 }, 2000, "ИИТ", "Кб-1", "ИТИП-01-00", 1234, "m", reaall);
-	s1.getName();
 	return 0;
 }
 	
