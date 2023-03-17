@@ -4,13 +4,33 @@
 #include <vector>
 #include <string>
 #include "structures.h"
+#include <fstream>
 #include "Student.cpp"
 using namespace std;
 
+class DataBase {
+	
+private:
+	string pathToFile;
+public:
+	void createDataBase(string _pathToFile) {
+		pathToFile = _pathToFile;
+		ofstream oFile(pathToFile);
+	}
+	void addToData(string studentData) {
+		ofstream file;
+		file.open(pathToFile, ios::in | ios::binary);
+		file << studentData;
+		file.close();
+	}
+};
 
 
 int main()
 {
+	DataBase db1;
+	db1.createDataBase("db.bin");
+	db1.addToData("gay");
 	string kek = "string";
 	const char* keks = kek.c_str();
 	//res1 = { {1, {"phys", 1}}  };
