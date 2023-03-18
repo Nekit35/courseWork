@@ -16,7 +16,7 @@ private:
 	char gender[64];
 	resAllSession session;
 public:
-	Student();
+	Student(const char _studentName[64], birthday _studentBirthday, int _admissionYear, const char _faculty[64], const char _department[64], const char _group[64], int _recordBookId, const char _gender[64], resAllSession _session);
 	void setStudentName(const char _studentName[64]);
 	void setStudentBirthday(birthday _studentBirthday);
 	void setAdmissionYear(int _admissionYear);
