@@ -1,11 +1,8 @@
-﻿
-
-#include <iostream>
-#include <vector>
-#include <string>
+﻿#include <iostream>
 #include "structures.h"
 #include <fstream>
-#include "Student.cpp"
+#include "Students.h"
+
 using namespace std;
 
 class DataBase {
@@ -44,7 +41,13 @@ int main()
 	resSession res1 = { 1,{subj1, subj2} };
 	resSession res2 = { 2,{subj3, subj4} };
 	resAllSession reaall = {{res1, res2}};
-	Student s1("Алексей Русаков", { 12, 12, 1980 }, 2000, "ИИТ", "Кб-1", "ИТИП-01-00", 1234, "m", reaall);
+	//Student s1("Алексей Русаков", { 2, 1, 1980 }, 2000, "ИИТ", "Кб-1", "ИТИП-01-00", 1234, "m", reaall);
+	
+	//cout << s1.getStudentBirthday().getDate();
+	Student s1;
+	s1.setStudentName("Alexey Rusakov");
+	s1.setAdmissionYear(1234);
+	s1.setDepartment("iiit-05-22");
 	return 0;
 }
 	

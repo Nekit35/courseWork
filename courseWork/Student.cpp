@@ -1,107 +1,99 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#include <string>
-#include "structures.h"
-#include "structures.h"
+
+#include "Students.h"
 using namespace std;
-class Student
+Student::Student(){
+}
+void Student::setStudentName(const char _studentName[64])
 {
-private:
-	string studentName;
-	birthday studentBirthday;
-	int admissionYear;
-	string faculty;
-	string department;
-	string group;
-	int recordBookId;
-	string gender;
-	resAllSession session;
-public:
-	Student(string _studentName, birthday _studentBirthday, int _admissionYear, string _faculty, string _department, string _group, int _recordBookId, string _gender, resAllSession _session)
-	{
-		studentName = _studentName;
-		studentBirthday = _studentBirthday;
-		admissionYear = _admissionYear;
-		faculty = _faculty;
-		department = _department;
-		group = _group;
-		recordBookId = _recordBookId;
-		gender = _gender;
-		session = _session;
+	int i = 0;
+	while (_studentName[i] != '\0') {
+		studentName[i] = _studentName[i];
+		i++;
 	}
-	void setStudentName(string _name)
-	{
-		studentName = _name;
+	studentName[i] = '\0';
+	
+}
+
+void Student::setStudentBirthday(birthday _studentBirthday)
+{
+	Student::studentBirthday = _studentBirthday;
+	
+}
+void Student::setAdmissionYear(int _admissionYear)
+{
+	Student::admissionYear = _admissionYear;
+	
+}
+void Student::setFaculty(const char _faculty[32])
+{
+	int i = 0;
+	while (_faculty[i] != '\0') {
+		Student::faculty[i] = _faculty[i];
+		i++;
 	}
-	void setStudentBirthday(birthday _studentBirthday)
-	{
-		studentBirthday = _studentBirthday;
+	
+	faculty[i] = '\0';
+	
+}
+void Student::setDepartment(const char _department[32])
+{
+	int i = 0;
+	while (_department[i] != '\0') {
+		Student::department[i] = _department[i];
+		i++;
 	}
-	void setAdmissionYear(int _admissionYear)
-	{
-		admissionYear = _admissionYear;
+	department[i] = '\0';
+}
+void Student::setGroup(const char _group[16])
+{
+	int i = 0;
+	while (_group[i] != '\0') {
+		Student::group[i] = _group[i];
+		i++;
 	}
-	void setFaculty(string _faculty)
-	{
-		faculty = _faculty;
+	group[i] = '\0';
+}
+void Student::setRecordBookId(int _recordBookId)
+{
+	Student::recordBookId = _recordBookId;
+	
+}
+void Student::setGender(const char _gender[3])
+{
+
+	int i = 0;
+	while (_gender[i] != '\0') {
+		Student::gender[i] = _gender[i];
+		i++;
 	}
-	void setDepartment(string _department)
-	{
-		department = _department;
-	}
-	void setGroup(string _group)
-	{
-		group = _group;
-	}
-	void setRecordBookId(int _recordBookId)
-	{
-		recordBookId = _recordBookId;
-	}
-	void setGender(string _gender)
-	{
-		gender = _gender;
-	}
-	void setSession(resAllSession _session)
-	{
-		session = _session;
-	}
+	gender[i] = '\0';
+}
+void Student::setSession(resAllSession _session)
+{
+	Student::session = _session;
+}
 
 
-	string getStudentName()
-	{
-		return studentName;
-	}
-	birthday getStudentBirthday()
-	{
-		return studentBirthday;
-	}
-	int getAdmissionYear()
-	{
-		return admissionYear;
-	}
-	string getFaculty()
-	{
-		return faculty;
-	}
-	string getDepartment()
-	{
-		return department;
-	}
-	string getGroup()
-	{
-		return group;
-	}
-	int getRecordBookId()
-	{
-		return recordBookId;
-	}
-	string getGender()
-	{
-		return gender;
-	}
-	resAllSession getSession()
-	{
-		return session;
-	}
-};
+	
+birthday Student::getStudentBirthday()
+{
+	return Student::studentBirthday;
+}
+int Student::getAdmissionYear()
+{
+	return Student::admissionYear;
+}
+
+
+
+int Student::getRecordBookId()
+{
+	return Student::recordBookId;
+}
+resAllSession Student::getSession()
+{
+	return Student::session;
+}
