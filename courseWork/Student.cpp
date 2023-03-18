@@ -27,7 +27,7 @@ void Student::setAdmissionYear(int _admissionYear)
 	Student::admissionYear = _admissionYear;
 	
 }
-void Student::setFaculty(const char _faculty[32])
+void Student::setFaculty(const char _faculty[64])
 {
 	int i = 0;
 	while (_faculty[i] != '\0') {
@@ -38,7 +38,7 @@ void Student::setFaculty(const char _faculty[32])
 	faculty[i] = '\0';
 	
 }
-void Student::setDepartment(const char _department[32])
+void Student::setDepartment(const char _department[64])
 {
 	int i = 0;
 	while (_department[i] != '\0') {
@@ -47,7 +47,7 @@ void Student::setDepartment(const char _department[32])
 	}
 	department[i] = '\0';
 }
-void Student::setGroup(const char _group[16])
+void Student::setGroup(const char _group[64])
 {
 	int i = 0;
 	while (_group[i] != '\0') {
@@ -61,9 +61,8 @@ void Student::setRecordBookId(int _recordBookId)
 	Student::recordBookId = _recordBookId;
 	
 }
-void Student::setGender(const char _gender[3])
+void Student::setGender(const char _gender[64])
 {
-
 	int i = 0;
 	while (_gender[i] != '\0') {
 		Student::gender[i] = _gender[i];
@@ -76,7 +75,17 @@ void Student::setSession(resAllSession _session)
 	Student::session = _session;
 }
 
-
+char* Student::getStudentName()
+{
+	char* res = new char[64];
+	int i = 0;
+	while (studentName[i] != '\0') {
+		res[i] = studentName[i];
+		i++;
+	}
+	res[i] = '\0';
+	return res;
+}
 	
 birthday Student::getStudentBirthday()
 {
@@ -86,12 +95,53 @@ int Student::getAdmissionYear()
 {
 	return Student::admissionYear;
 }
-
-
-
+char* Student::getFaculty()
+{
+	char* res = new char[64];
+	int i = 0;
+	while (faculty[i] != '\0') {
+		res[i] = faculty[i];
+		i++;
+	}
+	res[i] = '\0';
+	return res;
+}
+char* Student::getDepartment()
+{
+	char* res = new char[64];
+	int i = 0;
+	while (department[i] != '\0') {
+		res[i] = department[i];
+		i++;
+	}
+	res[i] = '\0';
+	return res;
+}
+char* Student::getGroup()
+{
+	char* res = new char[64];
+	int i = 0;
+	while (group[i] != '\0') {
+		res[i] = group[i];
+		i++;
+	}
+	res[i] = '\0';
+	return res;
+}
 int Student::getRecordBookId()
 {
 	return Student::recordBookId;
+}
+char* Student::getGender()
+{
+	char* res = new char[64];
+	int i = 0;
+	while (gender[i] != '\0') {
+		res[i] = gender[i];
+		i++;
+	}
+	res[i] = '\0';
+	return res;
 }
 resAllSession Student::getSession()
 {
