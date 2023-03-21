@@ -12,8 +12,8 @@ int main()
 	setlocale(LC_ALL, "Russian");
 
 	DataBase db1;
-	string path= "C:\\Users\\mrzei\\source\\repos\\courseWork\\courseWork\\db.bin";
-	db1.createDataBase("C:\\Users\\mrzei\\source\\repos\\courseWork\\courseWork\\db.bin");
+	string path= "";
+	db1.createDataBase("");
 	
 	//res1 = { {1, {"phys", 1}}  };
 
