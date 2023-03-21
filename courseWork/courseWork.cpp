@@ -12,10 +12,9 @@ int main()
 	setlocale(LC_ALL, "Russian");
 
 	DataBase db1;
-	db1.createDataBase("db.bin");
-	db1.addToData("gay");
-	string kek = "string";
-	const char* keks = kek.c_str();
+	string path= "C:\\Users\\mrzei\\source\\repos\\courseWork\\courseWork\\db.bin";
+	db1.createDataBase("C:\\Users\\mrzei\\source\\repos\\courseWork\\courseWork\\db.bin");
+	
 	//res1 = { {1, {"phys", 1}}  };
 
 	//name = "Алексей Русаков";
@@ -35,13 +34,12 @@ int main()
 	resSession res9 = { 1,{subj1, subj2} };
 	vector<resSession> reaall = {{res1, res2, res3,res4,res5,res6,res7,res8,res9}};
 	Student s1("Алексей Русаков", { 2, 1, 1980 }, 2000, "ИИТ", "Кб-1", "ИТИП-01-00", 123456, "m", reaall);
-	//cout << reaall;
-	//cout << s1.getStudentBirthday().getDate() << endl;
-	s1.setStudentName("Alexey Rusakov");
-	//cout << s1.getStudentName();
-	vector<resSession> res={ {res1, res2} };
-	//cout << res.size();
-
+	Student s2("Андрей Андреевич Андреев", { 5, 1, 1980 }, 2006, "ИКБ", "Кб-2", "ИТТТ-01-06", 123564, "m", reaall);
+	Student s3("Алексей Алексеевич Алексеев", { 12, 12, 1991 }, 2008, "Иту", "Кб-1", "ИТТТ-01-08", 123554, "m", reaall);
+	//db1.setPathToFile(path);
+	db1.addToData(s1.getDataForDB());
+	db1.addToData(s2.getDataForDB());
+	db1.addToData(s3.getDataForDB());
 	cout << s1.getDataForDB();
 	
 	return 0;

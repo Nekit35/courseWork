@@ -2,10 +2,15 @@
 void DataBase::createDataBase(string _pathToFile) {
 	pathToFile = _pathToFile;
 	ofstream oFile(pathToFile);
+	oFile.close();
 }
-void DataBase::addToData(string studentData) {
+void DataBase::addToData(const char * studentData) {
 	ofstream file;
-	file.open(pathToFile, ios::in | ios::binary);
+	file.open(pathToFile, ios::app | ios::binary);
 	file << studentData;
 	file.close();
+}
+void DataBase::setPathToFile(string _pathToFile)
+{
+	pathToFile = _pathToFile;
 }

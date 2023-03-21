@@ -7,5 +7,6 @@ private:
 	string pathToFile;
 public:
 	void createDataBase(string _pathToFile);
-	void addToData(string studentData);
+	void addToData(const char* studentData);
+	void setPathToFile(string _pathToFile);
 };

@@ -191,8 +191,6 @@ char* Student::getResSession(int _sessionNum)
 	resSession sess = session[sessionInVect];
 	int c = session.size();
 	int countSub = sess.subj.size();
-	string noGrade = "noGrade";
-	string noSubj = "noSubj";
 	
 	int count = sess.subj.size();
 	char countSubj[16];
