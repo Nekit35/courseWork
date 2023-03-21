@@ -2,25 +2,9 @@
 #include "structures.h"
 #include <fstream>
 #include "Students.h"
-
+#include "DataBase.h"
 using namespace std;
 
-class DataBase {
-	
-private:
-	string pathToFile;
-public:
-	void createDataBase(string _pathToFile) {
-		pathToFile = _pathToFile;
-		ofstream oFile(pathToFile);
-	}
-	void addToData(string studentData) {
-		ofstream file;
-		file.open(pathToFile, ios::in | ios::binary);
-		file << studentData;
-		file.close();
-	}
-};
 
 
 int main()
@@ -42,12 +26,25 @@ int main()
 	Subject subj4 = { "rus", 4 };
 	resSession res1 = { 1,{subj1, subj2} };
 	resSession res2 = { 2,{subj3, subj4} };
-	resAllSession reaall = {{res1, res2}};
-	Student s1("Алексей Русаков", { 2, 1, 1980 }, 2000, "ИИТ", "Кб-1", "ИТИП-01-00", 1234, "m", reaall);
-	
-	cout << s1.getStudentBirthday().getDate() << endl;
+	resSession res3 = { 1,{subj1, subj2} };
+	resSession res4 = { 1,{subj3, subj4} };
+	resSession res5 = { 1,{subj1, subj2} };
+	resSession res6 = { 1,{subj3, subj4} };
+	resSession res7 = { 1,{subj1, subj2} };
+	resSession res8 = { 1,{subj3, subj4} };
+	resSession res9 = { 1,{subj1, subj2} };
+	vector<resSession> reaall = {{res1, res2, res3,res4,res5,res6,res7,res8,res9}};
+	Student s1("Алексей Русаков", { 2, 1, 1980 }, 2000, "ИИТ", "Кб-1", "ИТИП-01-00", 123456, "m", reaall);
+	//cout << reaall;
+	//cout << s1.getStudentBirthday().getDate() << endl;
 	s1.setStudentName("Alexey Rusakov");
-	cout << s1.getStudentName();
+	//cout << s1.getStudentName();
+	vector<resSession> res={ {res1, res2} };
+	//cout << res.size();
+	char* asd = s1.getGender();
+	cout << s1.getResAllSession();
+	//cout << s1.getDataForDB();
+	
 	return 0;
 }
 	

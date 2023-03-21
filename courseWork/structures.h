@@ -2,10 +2,6 @@
 #include <vector>
 #include <string>
 using namespace std;
-struct str
-{
-	char c[1024];
-};
 struct birthday
 {
 	unsigned int day;
@@ -55,7 +51,7 @@ struct birthday
 };
 struct Subject
 {
-	string subj;
+	const char* subj;
 	int grade;
 };
 struct resSession
