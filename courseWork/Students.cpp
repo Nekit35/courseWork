@@ -193,31 +193,24 @@ char* Student::getResSession(int _sessionNum)
 	int countSub = sess.subj.size();
 	string noGrade = "noGrade";
 	string noSubj = "noSubj";
-
-	for (int j = 0; j < 10; j++) {
-		
-		
-		
+	
+	int count = sess.subj.size();
+	char countSubj[16];
+	if (count < 10) {
+		sprintf_s(countSubj, "%d", count);
+		res[i] = countSubj[0];
+	}
+	else {
+		sprintf_s(countSubj, "%d", count);
+		res[i] = countSubj[0];
+		i++;
+		res[i] = countSubj[1];
+	}
+	i++;
+	res[i] = ':';
+	i++;
+	for (int j = 0; j < count; j++) {
 		int k = 0;
-		if (j >= countSub) { 
-			while (noSubj.c_str()[k] != '\0') {
-				res[i] = noSubj.c_str()[k];
-				k++;
-				i++;
-			}
-			res[i] = ':';
-			i++;
-			k = 0;
-			while (noGrade.c_str()[k] != '\0') {
-				res[i] = noGrade.c_str()[k];
-				k++;
-				i++;
-			}
-			res[i] = ':';
-			i++;
-			continue;
-		}
-		
 		Subject sub = sess.subj[j];
 		while (sub.subj[k] != '\0') {
 			res[i] = sub.subj[k];
@@ -243,7 +236,7 @@ char* Student::getResAllSession()
 {
 	char* result = new char[2048];
 	int k = 0;
-	for (int i = 0; i < 2; i++) {
+	for (int i = 0; i < 9; i++) {
 		char sesNum[3];
 		sprintf_s(sesNum, "%d", i + 1);
 		result[k] = sesNum[0];
@@ -259,6 +252,7 @@ char* Student::getResAllSession()
 		}
 		
 	}
+	result[k] = '\0';
 	return result;
 }
 

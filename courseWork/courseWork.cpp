@@ -24,7 +24,7 @@ int main()
 	Subject subj2 = { "phys", 5 };
 	Subject subj3 = { "math", 3 };
 	Subject subj4 = { "rus", 4 };
-	resSession res1 = { 1,{subj1, subj2} };
+	resSession res1 = { 1,{subj1, subj2, subj3, subj4,subj1, subj2, subj3, subj4, subj1, subj2 } };
 	resSession res2 = { 2,{subj3, subj4} };
 	resSession res3 = { 1,{subj1, subj2} };
 	resSession res4 = { 1,{subj3, subj4} };
