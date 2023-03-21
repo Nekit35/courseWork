@@ -335,6 +335,16 @@ char* Student::getDataForDB()
 	j = 0;
 	res[i] = ':';
 	i++;
-
+	char* resSession = getResAllSession();
+	while (resSession[j] != '\0') {
+		res[i] = resSession[j];
+		i++;
+		j++;
+	}
+	j = 0;
+	i--;
+	res[i] = ';';
+	i++;
+	res[i] = '\0';
 	return res;
 }

@@ -41,9 +41,8 @@ int main()
 	//cout << s1.getStudentName();
 	vector<resSession> res={ {res1, res2} };
 	//cout << res.size();
-	char* asd = s1.getGender();
-	cout << s1.getResAllSession();
-	//cout << s1.getDataForDB();
+
+	cout << s1.getDataForDB();
 	
 	return 0;
 }

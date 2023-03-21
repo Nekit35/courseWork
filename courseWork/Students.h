@@ -37,7 +37,6 @@ public:
 	char* getGender();
 	vector<resSession> getSession();
 	char* getDataForDB();
-	char* getSubject();
 	char* getResSession(int _sessionNum);
 	char* getResAllSession();
 };
