@@ -9,7 +9,7 @@ Student::Student()
 {
 }
 
-Student::Student(const char _studentName[64], birthday _studentBirthday, int _admissionYear, const char _faculty[64], const char _department[64], const char _group[64], int _recordBookId, const char _gender[64], vector<resSession> _session)
+Student::Student(const char _studentName[64], birthday _studentBirthday, int _admissionYear, const char _faculty[64], const char _department[64], const char _group[64], const char _recordBookId[64], const char _gender[64], vector<resSession> _session)
 {
 	int i = 0;
 	while (_studentName[i] != '\0') {
@@ -36,8 +36,13 @@ Student::Student(const char _studentName[64], birthday _studentBirthday, int _ad
 		Student::group[i] = _group[i];
 		i++;
 	}
+	group[i] = '\0'; i = 0;
+	while (_recordBookId[i] != '\0') {
+		Student::recordBookId[i] = _recordBookId[i];
+		i++;
+	}
 	group[i] = '\0';
-	Student::recordBookId = _recordBookId;
+
 	i = 0;
 	while (_gender[i] != '\0') {
 		Student::gender[i] = _gender[i];
@@ -95,9 +100,14 @@ void Student::setGroup(const char _group[64])
 	}
 	group[i] = '\0';
 }
-void Student::setRecordBookId(int _recordBookId)
+void Student::setRecordBookId(const char _recordBookId[64])
 {
-	Student::recordBookId = _recordBookId;
+	int i = 0;
+	while (_recordBookId[i] != '\0') {
+		Student::recordBookId[i] = _recordBookId[i];
+		i++;
+	}
+	recordBookId[i] = '\0';
 	
 }
 void Student::setGender(const char _gender[64])
@@ -167,9 +177,17 @@ char* Student::getGroup()
 	res[i] = '\0';
 	return res;
 }
-int Student::getRecordBookId()
+char* Student::getRecordBookId()
 {
-	return Student::recordBookId;
+	char* res = new char[64];
+	int i = 0;
+	while (recordBookId[i] != '\0') {
+		res[i] = recordBookId[i];
+		i++;
+	}
+	res[i] = '\0';
+	return res;
+	return res;
 }
 char* Student::getGender()
 {
@@ -320,10 +338,8 @@ char* Student::getDataForDB()
 	j = 0;
 	res[i] = ':';
 	i++;
-	char recordBook[10];
-	sprintf_s(recordBook, "%d", recordBookId);
-	while (recordBook[j] != '\0'){
-		res[i] = recordBook[j];
+	while (recordBookId[j] != '\0'){
+		res[i] = recordBookId[j];
 		j++;
 		i++;
 	}

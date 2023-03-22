@@ -73,9 +73,10 @@ vector<Student*> DataBase::getStudents()
 	vector<Student*> res;
 	vector<char*> students = getStrStudents();
 	for (int i = 0; i < students.size(); i++) {
-		Student stud;
+		res.push_back(new Student);
 		char* strStud = students[i];
 		char* studName = new char[64];
+		birthday date;
 		int j = 0;
 		int k = 0;
 		while (strStud[j] != ':') {
@@ -83,10 +84,91 @@ vector<Student*> DataBase::getStudents()
 			j++;
 			k++;
 		}
+		studName[k] = '\0';
 		k = 0;
 		j++;
-		stud.setStudentName(studName);
-
+		res[i]->setStudentName(studName);
+		char* birthday = new char[11];
+		while (strStud[j] != ':') {
+			birthday[k] = strStud[j];
+			j++;
+			k++;
+		}
+		k = 0;
+		j++;
+		date.setDate(birthday);
+		res[i]->setStudentBirthday(date);
+		char* admissionYear = new char[11];
+		while (strStud[j] != ':') {
+			admissionYear[k] = strStud[j];
+			j++;
+			k++;
+		}
+		k = 0;
+		j++;
+		int admDate[5];
+		sscanf_s(admissionYear, "%d", admDate);
+		res[i]->setAdmissionYear(admDate[0]);
+		char* faculty = new char[64];
+		while (strStud[j] != ':') {
+			faculty[k] = strStud[j];
+			j++;
+			k++;
+		}
+		faculty[k] = '\0';
+		k = 0;
+		j++;
+		res[i]->setFaculty(faculty);
+		char* department = new char[64];
+		while (strStud[j] != ':') {
+			department[k] = strStud[j];
+			j++;
+			k++;
+		}
+		department[k] = '\0';
+		k = 0;
+		j++;
+		res[i]->setDepartment(department);
+		char* group = new char[64];
+		while (strStud[j] != ':') {
+			group[k] = strStud[j];
+			j++;
+			k++;
+		}
+		group[k] = '\0';
+		k = 0;
+		j++;
+		res[i]->setGroup(group);
+		char* recordBookId= new char[64];
+		while (strStud[j] != ':') {
+			recordBookId[k] = strStud[j];
+			j++;
+			k++;
+		}
+		recordBookId[k] = '\0';
+		k = 0;
+		j++;
+		res[i]->setRecordBookId(recordBookId);
+		char* gender = new char[64];
+		while (strStud[j] != ':') {
+			gender[k] = strStud[j];
+			j++;
+			k++;
+		}
+		gender[k] = '\0';
+		k = 0;
+		j++;
+		res[i]->setGender(gender);
+		char* resAllSession = new char[2048];
+		while (strStud[j] != ':') {
+			resAllSession[k] = strStud[j];
+			j++;
+			k++;
+		}
+		resAllSession[k] = '\0';
+		k = 0;
+		j++;
 	}
+
 	return res;
 }

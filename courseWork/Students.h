@@ -12,19 +12,19 @@ private:
 	char faculty[64];
 	char department[64];
 	char group[64];
-	int recordBookId;
+	char recordBookId[64];
 	char gender[64];
 	vector<resSession> session;
 public:
 	Student();
-	Student(const char _studentName[64], birthday _studentBirthday, int _admissionYear, const char _faculty[64], const char _department[64], const char _group[64], int _recordBookId, const char _gender[64], vector<resSession> _session);
+	Student(const char _studentName[64], birthday _studentBirthday, int _admissionYear, const char _faculty[64], const char _department[64], const char _group[64], const char _recordBookId[64], const char _gender[64], vector<resSession> _session);
 	void setStudentName(const char _studentName[64]);
 	void setStudentBirthday(birthday _studentBirthday);
 	void setAdmissionYear(int _admissionYear);
 	void setFaculty(const char _faculty[64]);
 	void setDepartment(const char _department[64]);
 	void setGroup(const char _group[64]);
-	void setRecordBookId(int _recordBookId);
+	void setRecordBookId(const char _recordBookId[64]);
 	void setGender(const char _gender[64]);
 	void setSession(vector<resSession> _session);
 
@@ -34,7 +34,7 @@ public:
 	char* getFaculty();
 	char* getDepartment();
 	char* getGroup();
-	int getRecordBookId();
+	char* getRecordBookId();
 	char* getGender();
 	vector<resSession> getSession();
 	char* getDataForDB();
