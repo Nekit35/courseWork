@@ -4,6 +4,11 @@
 
 #include "Students.h"
 using namespace std;
+
+Student::Student()
+{
+}
+
 Student::Student(const char _studentName[64], birthday _studentBirthday, int _admissionYear, const char _faculty[64], const char _department[64], const char _group[64], int _recordBookId, const char _gender[64], vector<resSession> _session)
 {
 	int i = 0;

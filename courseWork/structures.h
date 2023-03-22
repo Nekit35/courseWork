@@ -48,6 +48,9 @@ struct birthday
 		}
 		return res;
 	}
+	birthday setDate(char* date) {
+		
+	}
 };
 struct Subject
 {
