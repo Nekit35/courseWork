@@ -27,6 +27,7 @@ public:
 	void setRecordBookId(const char _recordBookId[64]);
 	void setGender(const char _gender[64]);
 	void setSession(vector<resSession> _session);
+	void setAllSession(const char* _session);
 
 	char* getStudentName();
 	birthday getStudentBirthday();

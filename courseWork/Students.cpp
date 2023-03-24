@@ -123,6 +123,51 @@ void Student::setSession(vector<resSession> _session)
 {
 	Student::session = _session;
 }
+void Student::setAllSession(const char* _session)
+{
+	vector<resSession> res;
+	int i = 0;
+	while (_session[i] != '\0') {
+		resSession session1;
+		char sesNum[1];
+		sesNum[0] = _session[i];
+		session1.sessionNumber = atoi(sesNum);
+		i += 2;
+		char subCount[3];
+		subCount[0] = _session[i];
+		i++;
+		if (_session[i] != ':') {
+			subCount[1] = _session[i];
+			i++;
+		}
+		int subjCount = atoi(subCount);
+		
+		i++;
+		for (int j = 0; j < subjCount; j++) {
+			Subject subject;
+			int k = 0;
+			char* sub = new char[64];
+			while (_session[i] != ':') {
+				sub[k] = _session[i];
+				i++;
+				k++;
+			}
+			sub[k] = '\0';
+			i++;
+			subject.subj = sub;
+			char grade1[1];
+			grade1[0] = _session[i];
+			i += 2;
+			int grade = atoi(grade1);
+			subject.grade = grade;
+			session1.subj.push_back(subject);
+			k = 0;
+		}
+		res.push_back(session1);
+		
+	}
+	session = res;
+}
 
 char* Student::getStudentName()
 {
@@ -257,7 +302,7 @@ char* Student::getResAllSession()
 {
 	char* result = new char[2048];
 	int k = 0;
-	for (int i = 0; i < 9; i++) {
+	for (int i = 0; i < session.size(); i++) {
 		char sesNum[3];
 		sprintf_s(sesNum, "%d", i + 1);
 		result[k] = sesNum[0];

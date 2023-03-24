@@ -159,8 +159,8 @@ vector<Student*> DataBase::getStudents()
 		k = 0;
 		j++;
 		res[i]->setGender(gender);
-		char* resAllSession = new char[2048];
-		while (strStud[j] != ':') {
+		char* resAllSession = new char[10240];
+		while (strStud[j] != ';') {
 			resAllSession[k] = strStud[j];
 			j++;
 			k++;
@@ -168,6 +168,7 @@ vector<Student*> DataBase::getStudents()
 		resAllSession[k] = '\0';
 		k = 0;
 		j++;
+		res[i]->setAllSession(resAllSession);
 	}
 
 	return res;
