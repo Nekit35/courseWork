@@ -10,6 +10,7 @@ private:
 	int Size;
 public:
 	MyList();
+	MyList(std::initializer_list<T> init);
 	void push_back(T data);
 	int size(){return Size}
 	T& operator[](const int index);
