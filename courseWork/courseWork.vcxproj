@@ -142,11 +142,15 @@
     <ClCompile Include="courseWork.cpp" />
     <ClCompile Include="DataBase.cpp" />
     <ClCompile Include="Encryption.cpp" />
+    <ClCompile Include="MyList.cpp" />
+    <ClCompile Include="Node.cpp" />
     <ClCompile Include="Students.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataBase.h" />
     <ClInclude Include="Encryption.h" />
+    <ClInclude Include="MyList.h" />
+    <ClInclude Include="Node.h" />
     <ClInclude Include="Students.h" />
     <ClInclude Include="structures.h" />
   </ItemGroup>

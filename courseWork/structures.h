@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <string>
+#include "MyList.h"
 using namespace std;
 struct birthday
 {
@@ -86,7 +87,7 @@ struct Subject
 struct resSession
 {
 	int sessionNumber;
-	vector<Subject> subj;
+	MyList<Subject> subj;
 };
 struct resAllSession
 {

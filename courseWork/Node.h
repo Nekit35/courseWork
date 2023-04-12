@@ -2,7 +2,7 @@
 template<typename T>
 class Node
 {
-protected:
+public:
 	Node* pNext;
 	T data;
 	Node(T data = T(), Node* pNext = nullptr)

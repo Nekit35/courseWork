@@ -9,7 +9,7 @@ Student::Student()
 {
 }
 
-Student::Student(const char _studentName[64], birthday _studentBirthday, int _admissionYear, const char _faculty[64], const char _department[64], const char _group[64], const char _recordBookId[64], const char _gender[64], vector<resSession> _session)
+Student::Student(const char _studentName[64], birthday _studentBirthday, int _admissionYear, const char _faculty[64], const char _department[64], const char _group[64], const char _recordBookId[64], const char _gender[64], MyList<resSession> _session)
 {
 	int i = 0;
 	while (_studentName[i] != '\0') {
@@ -17,7 +17,9 @@ Student::Student(const char _studentName[64], birthday _studentBirthday, int _ad
 		i++;
 	}
 	studentName[i] = '\0';
-	Student::studentBirthday = _studentBirthday;
+	if ((_studentBirthday.day < 32) && (_studentBirthday.day > 0) && (_studentBirthday.month > 0) && (_studentBirthday.month < 13) && (_studentBirthday.year > 1900) && (_studentBirthday.year < 2023))
+		Student::studentBirthday = _studentBirthday;
+	else Student::studentBirthday = { 1,1,2000 };
 	Student::admissionYear = _admissionYear;
 	i = 0;
 	while (_faculty[i] != '\0') {
@@ -51,7 +53,7 @@ Student::Student(const char _studentName[64], birthday _studentBirthday, int _ad
 	gender[i] = '\0';
 	Student::session = _session;
 }
-void Student::setStudentName(const char _studentName[64])
+bool Student::setStudentName(const char _studentName[64])
 {
 	int i = 0;
 	while (_studentName[i] != '\0') {
@@ -59,19 +61,23 @@ void Student::setStudentName(const char _studentName[64])
 		i++;
 	}
 	studentName[i] = '\0';
+	return 1;
 }
 
-void Student::setStudentBirthday(birthday _studentBirthday)
+bool Student::setStudentBirthday(birthday _studentBirthday)
 {
-	Student::studentBirthday = _studentBirthday;
-	
+	if ((_studentBirthday.day < 32) && (_studentBirthday.day > 0) && (_studentBirthday.month > 0) && (_studentBirthday.month < 13) && (_studentBirthday.year > 1900) && (_studentBirthday.year < 2023)) {
+		Student::studentBirthday = _studentBirthday;
+		return 1;
+	}
+	else return 0;
 }
-void Student::setAdmissionYear(int _admissionYear)
+bool Student::setAdmissionYear(int _admissionYear)
 {
 	Student::admissionYear = _admissionYear;
-	
+	return 1;
 }
-void Student::setFaculty(const char _faculty[64])
+bool Student::setFaculty(const char _faculty[64])
 {
 	int i = 0;
 	while (_faculty[i] != '\0') {
@@ -80,9 +86,9 @@ void Student::setFaculty(const char _faculty[64])
 	}
 	
 	faculty[i] = '\0';
-	
+	return 1;
 }
-void Student::setDepartment(const char _department[64])
+bool Student::setDepartment(const char _department[64])
 {
 	int i = 0;
 	while (_department[i] != '\0') {
@@ -90,8 +96,9 @@ void Student::setDepartment(const char _department[64])
 		i++;
 	}
 	department[i] = '\0';
+	return 1;
 }
-void Student::setGroup(const char _group[64])
+bool Student::setGroup(const char _group[64])
 {
 	int i = 0;
 	while (_group[i] != '\0') {
@@ -99,8 +106,9 @@ void Student::setGroup(const char _group[64])
 		i++;
 	}
 	group[i] = '\0';
+	return 1;
 }
-void Student::setRecordBookId(const char _recordBookId[64])
+bool Student::setRecordBookId(const char _recordBookId[64])
 {
 	int i = 0;
 	while (_recordBookId[i] != '\0') {
@@ -108,9 +116,9 @@ void Student::setRecordBookId(const char _recordBookId[64])
 		i++;
 	}
 	recordBookId[i] = '\0';
-	
+	return 1;
 }
-void Student::setGender(const char _gender[64])
+bool Student::setGender(const char _gender[64])
 {
 	int i = 0;
 	while (_gender[i] != '\0') {
@@ -118,14 +126,16 @@ void Student::setGender(const char _gender[64])
 		i++;
 	}
 	gender[i] = '\0';
+	return 1;
 }
-void Student::setSession(vector<resSession> _session)
+bool Student::setSession(MyList<resSession> _session)
 {
 	Student::session = _session;
+	return 1;
 }
-void Student::setAllSession(const char* _session)
+bool Student::setAllSession(const char* _session)
 {
-	vector<resSession> res;
+	MyList<resSession> res;
 	int i = 0;
 	while (_session[i] != '\0') {
 		resSession session1;
@@ -167,6 +177,7 @@ void Student::setAllSession(const char* _session)
 		
 	}
 	session = res;
+	return 1;
 }
 
 char* Student::getStudentName()
@@ -245,7 +256,7 @@ char* Student::getGender()
 	res[i] = '\0';
 	return res;
 }
-vector<resSession> Student::getSession()
+MyList<resSession> Student::getSession()
 {
 	return Student::session;
 }

@@ -11,8 +11,7 @@ private:
 	
 public:
 	MyList();
-	
-	MyList(std::initializer_list<T> init);
+	~MyList();
 	void clear();
 	void pop_first();
 	void push_back(T data);
@@ -30,30 +29,12 @@ MyList<T>::MyList()
 	Size = 0;
 	head = nullptr;
 }
-template<typename T>
-MyList<T>::MyList(std::initializer_list<T> init)
-{
-	typename std::initializer_list<T>::iterator it;
-	it = init.begin();
-	for (int i = 0; i < init.size(); i++)
-	{
-		if (head == nullptr)
-		{
-			head = new Node<T>(*it);
-		}
-		else 
-		{
-			Node<T>* current = this->head;
-			while (current->pNext != nullptr)
-			{
-				current = current->pNext;
-			}
-			current->pNext = new Node<T>(*it);
-		}
-		it++;
-	}
-}
 
+template<typename T>
+MyList<T>::~MyList()
+{
+	clear();
+}
 
 template<typename T>
 void MyList<T>::push_back(T data)
@@ -99,7 +80,7 @@ void MyList<T>::pop_first()
 	Node<T> *temp = head;
 	head = head->pNext;
 	delete temp;
-	size--;
+	Size--;
 }
 template<typename T>
 void MyList<T>::clear()
