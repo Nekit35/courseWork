@@ -11,7 +11,6 @@ private:
 	
 public:
 	MyList();
-	~MyList();
 	void clear();
 	void pop_first();
 	void push_back(T data);
@@ -22,6 +21,7 @@ public:
 	void removeAt(int index);
 	void pop_back();
 	void pop_front();
+	void popAt(int index);
 };
 template<typename T>
 MyList<T>::MyList()
@@ -30,11 +30,6 @@ MyList<T>::MyList()
 	head = nullptr;
 }
 
-template<typename T>
-MyList<T>::~MyList()
-{
-	clear();
-}
 
 template<typename T>
 void MyList<T>::push_back(T data)
@@ -77,15 +72,49 @@ T& MyList<T>::operator[](const int index)
 template<typename T>
 void MyList<T>::pop_first()
 {
-	Node<T> *temp = head;
-	head = head->pNext;
-	delete temp;
+	
+		Node<T>* temp = head;
+		if (temp->pNext == nullptr) Size = 0;
+		if ((head->pNext != nullptr) || (head->pNext != NULL)) {
+			head = head->pNext;
+			delete temp;
+			Size--;
+		}
+		else delete temp;
+}
+
+template<typename T>
+void MyList<T>::popAt(int index)
+{
+	Node<T>* current = head;
+	if (index == Size-1) {
+		while (current->pNext->pNext != nullptr)
+		{
+			current = current->pNext;
+		}
+		Node<T>* temp = current->pNext;
+		current->pNext = nullptr;
+		delete temp;
+	}
+	else {
+		int parserIndx = 0;
+		while (parserIndx < index - 1) {
+			current = current->pNext;
+		}
+		Node<T>* temp = current->pNext;
+		current->pNext = temp->pNext;
+		delete temp;
+	}
 	Size--;
 }
 template<typename T>
 void MyList<T>::clear()
 {
-	while (Size) pop_first();
+	while (Size) {
+		/*if (Size == 1) break;*/
+		pop_first();
+		
+	}
 }
 template<typename T>
 void MyList<T>::push_front(T data)

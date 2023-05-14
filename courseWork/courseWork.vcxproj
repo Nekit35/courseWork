@@ -140,15 +140,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="courseWork.cpp" />
+    <ClCompile Include="CryptoTools.cpp" />
     <ClCompile Include="DataBase.cpp" />
-    <ClCompile Include="Encryption.cpp" />
+    <ClCompile Include="Filter.cpp" />
+    <ClCompile Include="Interface.cpp" />
     <ClCompile Include="MyList.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="Students.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CryptoTools.h" />
     <ClInclude Include="DataBase.h" />
-    <ClInclude Include="Encryption.h" />
+    <ClInclude Include="Filter.h" />
+    <ClInclude Include="Interface.h" />
     <ClInclude Include="MyList.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Students.h" />

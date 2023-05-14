@@ -7,18 +7,22 @@ class Student
 {
 private:
 	char studentName[64];
+	char studentSurName[64];
+	char studentPatronymic[64];
 	birthday studentBirthday;
 	int admissionYear;
 	char faculty[64];
 	char department[64];
 	char group[64];
 	char recordBookId[64];
-	char gender[64];
+	char gender[64]; 
 	MyList<resSession> session;
 public:
 	Student();
-	Student(const char _studentName[64], birthday _studentBirthday, int _admissionYear, const char _faculty[64], const char _department[64], const char _group[64], const char _recordBookId[64], const char _gender[64], MyList<resSession> _session);
+	Student(const char _studentName[64], const char _studentSurName[64], const char _studentPatronymic[64], birthday _studentBirthday, int _admissionYear, const char _faculty[64], const char _department[64], const char _group[64], const char _recordBookId[64], const char _gender[64], MyList<resSession> _session);
 	bool setStudentName(const char _studentName[64]);
+	bool setStudentSurName(const char _studentSurName[64]);
+	bool setStudentPatronymic(const char _studentPatronymic[64]);
 	bool setStudentBirthday(birthday _studentBirthday);
 	bool setAdmissionYear(int _admissionYear);
 	bool setFaculty(const char _faculty[64]);
@@ -30,6 +34,8 @@ public:
 	bool setAllSession(const char* _session);
 
 	char* getStudentName();
+	char* getStudentSurName();
+	char* getStudentPatronymic();
 	birthday getStudentBirthday();
 	int getAdmissionYear();
 	char* getFaculty();

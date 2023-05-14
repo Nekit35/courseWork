@@ -9,7 +9,7 @@ Student::Student()
 {
 }
 
-Student::Student(const char _studentName[64], birthday _studentBirthday, int _admissionYear, const char _faculty[64], const char _department[64], const char _group[64], const char _recordBookId[64], const char _gender[64], MyList<resSession> _session)
+Student::Student(const char _studentName[64], const char _studentSurName[64], const char _studentPatronymic[64], birthday _studentBirthday, int _admissionYear, const char _faculty[64], const char _department[64], const char _group[64], const char _recordBookId[64], const char _gender[64], MyList<resSession> _session)
 {
 	int i = 0;
 	while (_studentName[i] != '\0') {
@@ -17,6 +17,18 @@ Student::Student(const char _studentName[64], birthday _studentBirthday, int _ad
 		i++;
 	}
 	studentName[i] = '\0';
+	i = 0;
+	while (_studentSurName[i] != '\0') {
+		studentSurName[i] = _studentSurName[i];
+		i++;
+	}
+	studentSurName[i] = '\0';
+	i = 0;
+	while (_studentPatronymic[i] != '\0') {
+		studentPatronymic[i] = _studentPatronymic[i];
+		i++;
+	}
+	studentPatronymic[i] = '\0';
 	if ((_studentBirthday.day < 32) && (_studentBirthday.day > 0) && (_studentBirthday.month > 0) && (_studentBirthday.month < 13) && (_studentBirthday.year > 1900) && (_studentBirthday.year < 2023))
 		Student::studentBirthday = _studentBirthday;
 	else Student::studentBirthday = { 1,1,2000 };
@@ -55,6 +67,7 @@ Student::Student(const char _studentName[64], birthday _studentBirthday, int _ad
 }
 bool Student::setStudentName(const char _studentName[64])
 {
+	if (strlen(_studentName) > 63) return 0;
 	int i = 0;
 	while (_studentName[i] != '\0') {
 		studentName[i] = _studentName[i];
@@ -63,7 +76,28 @@ bool Student::setStudentName(const char _studentName[64])
 	studentName[i] = '\0';
 	return 1;
 }
-
+bool Student::setStudentSurName(const char _studentSurName[64])
+{
+	if (strlen(_studentSurName) > 63) return 0;
+	int i = 0;
+	while (_studentSurName[i] != '\0') {
+		studentSurName[i] = _studentSurName[i];
+		i++;
+	}
+	studentSurName[i] = '\0';
+	return 1;
+}
+bool Student::setStudentPatronymic(const char _studentPatronymic[64])
+{
+	if (strlen(_studentPatronymic) > 63) return 0;
+	int i = 0;
+	while (_studentPatronymic[i] != '\0') {
+		studentPatronymic[i] = _studentPatronymic[i];
+		i++;
+	}
+	studentPatronymic[i] = '\0';
+	return 1;
+}
 bool Student::setStudentBirthday(birthday _studentBirthday)
 {
 	if ((_studentBirthday.day < 32) && (_studentBirthday.day > 0) && (_studentBirthday.month > 0) && (_studentBirthday.month < 13) && (_studentBirthday.year > 1900) && (_studentBirthday.year < 2023)) {
@@ -79,6 +113,7 @@ bool Student::setAdmissionYear(int _admissionYear)
 }
 bool Student::setFaculty(const char _faculty[64])
 {
+	if (strlen(_faculty) > 63) return 0;
 	int i = 0;
 	while (_faculty[i] != '\0') {
 		Student::faculty[i] = _faculty[i];
@@ -90,6 +125,7 @@ bool Student::setFaculty(const char _faculty[64])
 }
 bool Student::setDepartment(const char _department[64])
 {
+	if (strlen(_department) > 63) return 0;
 	int i = 0;
 	while (_department[i] != '\0') {
 		Student::department[i] = _department[i];
@@ -100,6 +136,7 @@ bool Student::setDepartment(const char _department[64])
 }
 bool Student::setGroup(const char _group[64])
 {
+	if (strlen(_group) > 63) return 0;
 	int i = 0;
 	while (_group[i] != '\0') {
 		Student::group[i] = _group[i];
@@ -110,6 +147,7 @@ bool Student::setGroup(const char _group[64])
 }
 bool Student::setRecordBookId(const char _recordBookId[64])
 {
+	if (strlen(_recordBookId) > 63) return 0;
 	int i = 0;
 	while (_recordBookId[i] != '\0') {
 		Student::recordBookId[i] = _recordBookId[i];
@@ -120,13 +158,17 @@ bool Student::setRecordBookId(const char _recordBookId[64])
 }
 bool Student::setGender(const char _gender[64])
 {
-	int i = 0;
-	while (_gender[i] != '\0') {
-		Student::gender[i] = _gender[i];
-		i++;
+
+	if ((_gender[0] == '0') || (_gender[0] == '1')) {
+		int i = 0;
+		while (_gender[i] != '\0') {
+			Student::gender[i] = _gender[i];
+			i++;
+		}
+		gender[i] = '\0';
+		return 1;
 	}
-	gender[i] = '\0';
-	return 1;
+	else return 0;
 }
 bool Student::setSession(MyList<resSession> _session)
 {
@@ -137,6 +179,7 @@ bool Student::setAllSession(const char* _session)
 {
 	MyList<resSession> res;
 	int i = 0;
+	int flag = 0;
 	while (_session[i] != '\0') {
 		resSession session1;
 		char sesNum[1];
@@ -151,7 +194,6 @@ bool Student::setAllSession(const char* _session)
 			i++;
 		}
 		int subjCount = atoi(subCount);
-		
 		i++;
 		for (int j = 0; j < subjCount; j++) {
 			Subject subject;
@@ -167,13 +209,16 @@ bool Student::setAllSession(const char* _session)
 			subject.subj = sub;
 			char grade1[1];
 			grade1[0] = _session[i];
-			i += 2;
+			i +=2;
 			int grade = atoi(grade1);
 			subject.grade = grade;
 			session1.subj.push_back(subject);
 			k = 0;
+			if ((_session[i] == '\0') || (_session[i + 1] == '\0') || (_session[i - 1] == '\0') || (_session[i] == -51)) flag = 1;;
 		}
+		
 		res.push_back(session1);
+		if (flag == 1) break;
 		
 	}
 	session = res;
@@ -191,7 +236,28 @@ char* Student::getStudentName()
 	res[i] = '\0';
 	return res;
 }
-	
+char* Student::getStudentSurName()
+{
+	char* res = new char[64];
+	int i = 0;
+	while (studentSurName[i] != '\0') {
+		res[i] = studentSurName[i];
+		i++;
+	}
+	res[i] = '\0';
+	return res;
+}
+char* Student::getStudentPatronymic()
+{
+	char* res = new char[64];
+	int i = 0;
+	while (studentPatronymic[i] != '\0') {
+		res[i] = studentPatronymic[i];
+		i++;
+	}
+	res[i] = '\0';
+	return res;
+}
 birthday Student::getStudentBirthday()
 {
 	return Student::studentBirthday;
@@ -248,13 +314,20 @@ char* Student::getRecordBookId()
 char* Student::getGender()
 {
 	char* res = new char[64];
+	char* male = new char[2];
+	male[0] = 'ì';
+	male[1] = '\0';
+	char *female = new char[2];
+	female[0] = 'æ';
+	female[1] = '\0';
 	int i = 0;
 	while (gender[i] != '\0') {
 		res[i] = gender[i];
 		i++;
 	}
 	res[i] = '\0';
-	return res;
+	if (res[0] == '0') return male;
+	if (res[0] == '1') return female;
 }
 MyList<resSession> Student::getSession()
 {
@@ -341,6 +414,22 @@ char* Student::getDataForDB()
 	int j = 0;
 	while (studentName[j] != '\0') {
 		res[i] = studentName[j];
+		i++;
+		j++;
+	}
+	j = 0;
+	res[i] = ':';
+	i++;
+	while (studentSurName[j] != '\0') {
+		res[i] = studentSurName[j];
+		i++;
+		j++;
+	}
+	j = 0;
+	res[i] = ':';
+	i++;
+	while (studentPatronymic[j] != '\0') {
+		res[i] = studentPatronymic[j];
 		i++;
 		j++;
 	}

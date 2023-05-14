@@ -1,19 +1,21 @@
 #pragma once
 #include <fstream>
 #include "Students.h"
+#include "CryptoTools.h"
 class DataBase {
 
 private:
 	string pathToFile;
 	char* studentData;
 public:
+	void setPathToDB(string path) { pathToFile = path; }
+	string getPathToDB() { return pathToFile; }
 	DataBase();
-	void createDataBase(string _pathToFile);
+	void createDataBase();
 	void addToData(const char* _studentData);
-	void setPathToFile(string _pathToFile);
 
-	char * getData();
-	vector<char*> getStrStudents();
-	vector<Student*> getStudents();
+	char * getDataFromDB();
+	MyList<char*> getStrStudents();
+	MyList<Student*> getStudents();
 	
 };

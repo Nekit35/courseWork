@@ -3,105 +3,88 @@
 #include <fstream>
 #include "Students.h"
 #include "DataBase.h"
-#include"Encryption.h"
+#include "Interface.h"
 #include "MyList.h"
+#include "Filter.h"
+#include "CryptoTools.h"
 using namespace std;
-
-
-
 int main()
 {
 	setlocale(LC_ALL, "Russian");
 
 	DataBase db1;
-	string path= "C:\\Users\\mrzei\\source\\repos\\courseWork\\courseWork\\db.bin";
-	db1.createDataBase(path);
-	
-	//res1 = { {1, {"phys", 1}}  };
+	string path= "db.bin";
+	//db1.createDataBase();
 
-	//name = "Алексей Русаков";
-	//resAllSession res;
 	Subject subj1 = { "matan", 2 };
 	Subject subj2 = { "phys", 5 };
 	Subject subj3 = { "math", 3 };
 	Subject subj4 = { "rus", 4 };
-	/*resSession res1 = {1,{}};
-	res1.subj.push_back(subj1);
-	res1.subj.push_back(subj2);
+	resSession res1 = {1,{}};
+	res1.subj.push_back(subj3);
+	res1.subj.push_back(subj3);
 	resSession res2 = {2,{}};
 	res2.subj.push_back(subj3);
-	res2.subj.push_back(subj4);
+	res2.subj.push_back(subj3);
 	resSession res3 = { 3,{} };
-	res3.subj.push_back(subj1);
+	res3.subj.push_back(subj2);
 	res3.subj.push_back(subj2);
 	resSession res4 = { 4,{} };
-	res4.subj.push_back(subj3);
-	res4.subj.push_back(subj4);
+	res4.subj.push_back(subj2);
+	res4.subj.push_back(subj2);
 	resSession res5 = { 5,{} };
-	res5.subj.push_back(subj1);
+	res5.subj.push_back(subj2);
 	res5.subj.push_back(subj2);
 	resSession res6 = { 6,{} };
-	res6.subj.push_back(subj3);
-	res6.subj.push_back(subj4);
+	res6.subj.push_back(subj2);
+	res6.subj.push_back(subj2);
 	resSession res7 = { 7,{} };
-	res7.subj.push_back(subj1);
+	res7.subj.push_back(subj2);
 	res7.subj.push_back(subj2);
 	resSession res8 = { 8,{} };
-	res8.subj.push_back(subj3);
-	res8.subj.push_back(subj4);
+	res8.subj.push_back(subj2);
+	res8.subj.push_back(subj2);
 	resSession res9 = { 9,{} };
-	res9.subj.push_back(subj1);
 	res9.subj.push_back(subj2);
-	*/
+	res9.subj.push_back(subj2);
+	MyList<resSession> reaall;
+	reaall.push_back(res1);
+	reaall.push_back(res2);
+	reaall.push_back(res3);
+	reaall.push_back(res4);
+	reaall.push_back(res5);
+	reaall.push_back(res6);
+	reaall.push_back(res7);
+	reaall.push_back(res8);
+	reaall.push_back(res9);
+	MyList<resSession> re;
+	re.push_back(res1);
+	re.push_back(res2);
+	re.push_back(res3);
+	re.push_back(res4);
+	Student s1("Алексей","Русаков","Михайлович", { 2, 1, 1980 }, 2000, "ИИТ", "Кб-1", "ИТИП-01-00", "22Б0803", "0", reaall);
+	Student s2("Андрей", "Андреевич", "Андреев", { 5, 1, 1980 }, 2006, "ИКБ", "Кб-2", "ИТТТ-01-06", "123564", "0", re);
+	Student s3("Алексей", "Алексеевич", "Алексеев", { 12, 12, 1991 }, 2008, "Иту", "Кб-1", "ИТТТ-01-08", "123554", "0", reaall);
 
-	
-	/*/resSession res1 = {1,{subj1, subj2}};
-	resSession res2 = { 2,{subj3, subj4} };
-	resSession res3 = { 1,{subj1, subj2} };
-	resSession res4 = { 1,{subj3, subj4} };
-	resSession res5 = { 1,{subj1, subj2} };
-	resSession res6 = { 1,{subj3, subj4} };
-	resSession res7 = { 1,{subj1, subj2} };
-	resSession res8 = { 1,{subj3, subj4} };
-	resSession res9 = { 1,{subj1, subj2} };
-	*/
-	//MyList<resSession> reaall = {{res1, res2, res3,res4,res5,res6,res7,res8,res9}};
-	//MyList<resSession> re = { {res1, res2, res3,res4} };
-	//Student s1("Алексей Русаков", { 2, 1, 1980 }, 2000, "ИИТ", "Кб-1", "ИТИП-01-00", "123456", "m", reaall);
-	//Student s2("Андрей Андреевич Андреев", { 5, 1, 1980 }, 2006, "ИКБ", "Кб-2", "ИТТТ-01-06", "123564", "m", re);
-	//Student s3("Алексей Алексеевич Алексеев", { 12, 12, 1991 }, 2008, "Иту", "Кб-1", "ИТТТ-01-08", "123554", "m", reaall);
-	//db1.setPathToFile(path);
-	vector<char*>res;
-	//Encryption encr;
 	//db1.addToData(s1.getDataForDB());
 	//db1.addToData(s2.getDataForDB());
 	//db1.addToData(s3.getDataForDB());
-	//db1.getStudents();
-	char name[] = "holera";
+	//MyList<Student*> lst = db1.getStudents();
+	//Filter filter(db1.getStudents());
 
+
+	//char* m = db1.getStudents()[1]->getStudentName();
+	//char* n = db1.getStudents()[0]->getStudentName();
+	//char* r = db1.getStudents()[2]->getStudentName();
+	//MyList<Student*> frr = filter.filter3();
 	//cout<<s1.getResAllSession()<<endl;
 	//s1.setAllSession(s2.getResAllSession());
 	//cout << s1.getResAllSession();
 
-	/*MyList<Student> list;
-	list.push_back(s1);
-	list.push_back(s2);
-	list.push_back(s3);
-	list[1];
+	
+	Interface interface;
 
-	MyList<Subject> lel;
-	lel.push_back(subj1);
-	lel.push_back(subj2);
-	
-	MyList<int> kek;
-	kek.push_back(12);
-	kek.push_back(13);
-	kek.push_back(14);
-	
-	 list[0];
-	 list[1];
-	 list[2];
-	 */
+
 	return 0;
 }
 	

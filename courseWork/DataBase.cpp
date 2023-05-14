@@ -1,26 +1,22 @@
 #include "DataBase.h"
-void DataBase::createDataBase(string _pathToFile) {
-	pathToFile = _pathToFile;
+void DataBase::createDataBase() {
 	ofstream oFile(pathToFile);
 	oFile.close();
 }
-void DataBase::addToData(const char * _studentData) {
+void DataBase::addToData(const char* _studentData) {
 	ofstream file;
 	file.open(pathToFile, ios::app | ios::binary);
 	file << _studentData;
 	file.close();
-}
-void DataBase::setPathToFile(string _pathToFile)
-{
-	pathToFile = _pathToFile;
+
 }
 DataBase::DataBase() {
-	string standartPath = "Ñ:\\db.bin";
+	string standartPath = "db.bin";
 	pathToFile = standartPath;
 }
-char * DataBase::getData()
+char * DataBase::getDataFromDB()
 {
-	char* result = new char[10240];
+	char* result = new char[102400];
 	string line;
 	ifstream file;
 	file.open(pathToFile);
@@ -36,26 +32,26 @@ char * DataBase::getData()
 	result[i] = '\0';
 	return result;
 }
-vector<char*> DataBase::getStrStudents()
+MyList<char*> DataBase::getStrStudents()
 {
-	vector<char*> res;
+	MyList<char*> res;
 	int i = 0;
 	int flag = 0;
-	getData();
-	while (getData()[i] != '\0')
+	getDataFromDB();
+	while (getDataFromDB()[i] != '\0')
 	{
 		int j = 0;
 		char* str = new char[1024];
-		char k = getData()[i];
-		char m = getData()[i++];
-		char n = getData()[i--];
-		if ((getData()[i] == '\0') || (getData()[i++] == '\0') || (getData()[i--] == '\0')) { break; }
-		if ((getData()[i] == ';')&&(flag==0)) flag = 1;
-		if ((getData()[i] == ';') && (flag == 1)) flag = 0;
-		if ((getData()[i] == ';') && (flag == 0)&&(getData()[i++] == ';')) flag = 1;
+		char k = getDataFromDB()[i];
+		char m = getDataFromDB()[i++];
+		char n = getDataFromDB()[i--];
+		if ((getDataFromDB()[i] == '\0') || (getDataFromDB()[i++] == '\0') || (getDataFromDB()[i--] == '\0')) { break; }
+		if ((getDataFromDB()[i] == ';')&&(flag==0)) flag = 1;
+		if ((getDataFromDB()[i] == ';') && (flag == 1)) flag = 0;
+		if ((getDataFromDB()[i] == ';') && (flag == 0)&&(getDataFromDB()[i++] == ';')) flag = 1;
 		if (flag) {
-			while ((flag)&&(getData()[i] != ';')) {
-				str[j] = getData()[i];
+			while ((flag)&&(getDataFromDB()[i] != ';')) {
+				str[j] = getDataFromDB()[i];
 				i++;
 				j++;
 			}
@@ -68,14 +64,16 @@ vector<char*> DataBase::getStrStudents()
 
 	return res;
 }
-vector<Student*> DataBase::getStudents()
+MyList<Student*> DataBase::getStudents()
 {
-	vector<Student*> res;
-	vector<char*> students = getStrStudents();
+	MyList<Student*> res;
+	MyList<char*> students = getStrStudents();
 	for (int i = 0; i < students.size(); i++) {
 		res.push_back(new Student);
 		char* strStud = students[i];
 		char* studName = new char[64];
+		char* studSurName = new char[64];
+		char* studPatro = new char[64];
 		birthday date;
 		int j = 0;
 		int k = 0;
@@ -88,6 +86,24 @@ vector<Student*> DataBase::getStudents()
 		k = 0;
 		j++;
 		res[i]->setStudentName(studName);
+		while (strStud[j] != ':') {
+			studSurName[k] = strStud[j];
+			j++;
+			k++;
+		}
+		studSurName[k] = '\0';
+		k = 0;
+		j++;
+		res[i]->setStudentSurName(studSurName);
+		while (strStud[j] != ':') {
+			studPatro[k] = strStud[j];
+			j++;
+			k++;
+		}
+		studPatro[k] = '\0';
+		k = 0;
+		j++;
+		res[i]->setStudentPatronymic(studPatro);
 		char* birthday = new char[11];
 		while (strStud[j] != ':') {
 			birthday[k] = strStud[j];
@@ -160,7 +176,7 @@ vector<Student*> DataBase::getStudents()
 		j++;
 		res[i]->setGender(gender);
 		char* resAllSession = new char[10240];
-		while (strStud[j] != ';') {
+		while (strStud[j] != '\0') {
 			resAllSession[k] = strStud[j];
 			j++;
 			k++;
@@ -170,6 +186,6 @@ vector<Student*> DataBase::getStudents()
 		j++;
 		res[i]->setAllSession(resAllSession);
 	}
-
+	
 	return res;
 }

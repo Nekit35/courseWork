@@ -78,6 +78,35 @@ struct birthday
 		month = month2[0];
 		year = year2[0];
 	}
+	bool checkDate() {
+		if (((month == 1) || (month == 3) || (month == 5) || 
+			(month == 7) || (month == 8) || (month == 10) || 
+			(month == 12)) && ((year < 2023) && (year > 1950)))
+		{
+			if ((day > 31) && (day < 1))
+			{
+				return 0;
+			}
+			else return 1;
+		}
+		if ((month == 2) && ((year < 2023) && (year > 1950)))
+		{
+			if ((day > 28) && (day < 1))
+			{
+				return 0;
+			}
+			else return 1;
+		}
+		if (((month == 4) || (month == 6) || (month == 9) || (month == 11)) && ((year > 2023) && (year < 1950)))
+		{
+			if ((day > 30) && (day < 1))
+			{
+				return 0;
+			}
+			else return 1;
+		}
+		else return 0;
+	}
 };
 struct Subject
 {
@@ -88,8 +117,4 @@ struct resSession
 {
 	int sessionNumber;
 	MyList<Subject> subj;
-};
-struct resAllSession
-{
-	vector<resSession> result;
 };
