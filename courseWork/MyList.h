@@ -22,7 +22,10 @@ public:
 	void pop_back();
 	void pop_front();
 	void popAt(int index);
+	void changeSize();
 };
+
+
 template<typename T>
 MyList<T>::MyList()
 {
@@ -100,12 +103,15 @@ void MyList<T>::popAt(int index)
 		int parserIndx = 0;
 		while (parserIndx < index - 1) {
 			current = current->pNext;
+			parserIndx++;
 		}
 		Node<T>* temp = current->pNext;
 		current->pNext = temp->pNext;
 		delete temp;
+		
 	}
 	Size--;
+	return;
 }
 template<typename T>
 void MyList<T>::clear()
@@ -142,27 +148,7 @@ void MyList<T>::insert(T data, int index)
 		Size++;
 	}
 }
-template<typename T>
-void MyList<T>::removeAt(int index)
-{
-	if (index == 0)
-	{
-		pop_front();
-	}
-	else
-	{
-		Node<T>* previous = this->head;
-		for (int i = 0; i < index - 1; i++)
-		{
-			previous = previous->pNext;
-		}
-		Node<T>* toDelete = previous->pNext;
-		previous->pNext = toDelete->pNext;
-		delete toDelete;
-		Size--;
-	}
 
-}
 template<typename T>
 void MyList<T>::pop_back()
 {

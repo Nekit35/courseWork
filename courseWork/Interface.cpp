@@ -72,15 +72,16 @@ char* Interface::inputPassword(char* buffer)
 		}
 	} while (symbol != VK_RETURN);
 
-	*ptr = 0; // конец строки
+	*ptr = 0; 
 	return buffer;
 }
 void Interface::mainPage()
 {
+	system("cls");
 	cout << "Выберите действие:" << endl
 		<< "1. Вывести список всех студентов" << endl           //+
 		<< "2. Добавить студента" << endl                       //+
-		<< "3. Редактировать студента" << endl                  //-
+		<< "3. Редактировать студента" << endl                  //+
 		<< "4. Удалить студента" << endl                        //+
 		<< "5. Индивидуальное задание" << endl                  //-
 		<< "6. Сохранить и зашифровать базу данных" << endl;    //-
@@ -458,24 +459,297 @@ void Interface::printSubjectLine()
 {
 	cout << "|   |-------------------|------|" << endl;
 }
+
+bool Interface::sessionParser(int index, int parsIndex)
+{
+	for (int i = 0; i < students[index]->getSession().size(); i++) {
+		if (students[index]->getSession()[i].sessionNumber == parsIndex) return 1;
+		else return 0;
+	}
+}
+int Interface::checkSession(int index, int sessionNum)
+{
+	MyList<resSession> ses = students[index]->getSession();
+	for (int i = 0; i < ses.size(); i++) {
+		if (ses[i].sessionNumber != sessionNum) return 1;
+	}
+	return 0;
+}
+void Interface::addSession(int index)
+{
+	MyList<resSession> ses = students[index]->getSession();
+	if (ses.size() == 9) {
+		cout << "Достигнуто максимальное количество сессий" << endl;
+		_getch();
+	}
+	else {
+		int sessionNum=100;
+		int flag = 0;
+		while (true) {
+			while (sessionNum > 9) {
+				cout << "Введите номер сессии, которую хотите добавить: ";
+				cin >> sessionNum;
+			}
+			
+			if (checkSession(index, sessionNum) == 1) {
+				if (sessionNum == 1) {
+					resSession res;
+					res.sessionNumber = sessionNum;
+					ses.insert(res, 0);
+					flag = 1;
+					break;
+				}
+				if (sessionNum == 9&& ses.size()==8) {
+					resSession res;
+					res.sessionNumber = sessionNum;
+					ses.insert(res, 8);
+					flag = 1;
+					break;
+				}
+				for (int i = 0; i < ses.size() - 1; i++) {
+					if (ses[i].sessionNumber< sessionNum && ses[i + 1].sessionNumber > sessionNum) {
+						resSession res;
+						res.sessionNumber = sessionNum;
+						ses.insert(res, i+1);
+						flag = 1;
+						break;
+					}
+				}
+			}
+			if (flag == 1) break;
+		}
+	}
+	students[index]->setSession(ses);
+	return;
+}
+
+
+void Interface::addSubject(int index)
+{
+	MyList<resSession> ses = students[index]->getSession();
+	int sessionNum = 100;
+	int flag = 0;
+	int sesIndex;
+		while (sessionNum > 9) {
+			cout << "Введите номер сессии, предмет в которой хотите добавить предмет: ";
+			cin >> sessionNum;
+			for (int i = 0; i<ses.size(); i++) {
+				if (ses[i].sessionNumber == sessionNum) { 
+					flag = 1; 
+					sesIndex = i;
+				}
+			}
+			if (ses[sesIndex].subj.size() == 10) {
+				cout << "В этой сессии уже максимальное количество предметов!" << endl;
+				_getch();
+				return;
+			}
+			if (flag == 0) {
+				cout << "Вы ввели номер сессии, которой не существует, попробуйте снова!" << endl;
+				sessionNum = 100;
+			}
+		}
+		char* newSubjectName = new char[64];
+		int newGrade;
+		cout << "Введите название предмета (если предмет состоит из 2 и более слов, то вводить так ААнглийский_язык): ";
+		cin >> newSubjectName;
+		cout << "Введите оценку за предмет(-1 - неявка, 0 - незачет, 1 - зачет): ";
+		cin >> newGrade;
+		Subject newSubject;
+		newSubject.subj = newSubjectName;
+		newSubject.grade = newGrade;
+		ses[sesIndex].subj.push_back(newSubject);
+		students[index]->setSession(ses);
+}
 void Interface::editSession(int index)
 {
+	system("cls");
 	printSessionHead();
 	for (int i = 0; i < students[index]->getSession().size(); i++) {
-		cout << "|" << left << setw(3) << students[index]->getSession()[i].sessionNumber << "|" << left << setw(19) << students[index]->getSession()[i].subj[0].subj << "|" << left << setw(6) << students[index]->getSession()[i].subj[0].grade << "|" << endl;
-		printSubjectLine();
-		for (int j = 1; j < students[index]->getSession()[i].subj.size(); j++) {
-			cout << "|   |" << left << setw(19) << students[index]->getSession()[i].subj[j].subj << "|" << left << setw(6) << students[index]->getSession()[i].subj[j].grade << "|" << endl;
-			if (j != students[index]->getSession()[i].subj.size() - 1) printSubjectLine();
+		if (students[index]->getSession()[i].subj.size() == 0) {
+			cout << "|" << left << setw(3) << students[index]->getSession()[i].sessionNumber << "|-------------------|------|" << endl;
+			printSessionLine();
 		}
-		printSessionLine();
+		else {
+			cout << "|" << left << setw(3) << students[index]->getSession()[i].sessionNumber << "|" << left << setw(19) << students[index]->getSession()[i].subj[0].subj << "|" << left << setw(6) << students[index]->getSession()[i].subj[0].grade << "|" << endl;
+			if (students[index]->getSession()[i].subj.size() == 1) printSessionLine();
+
+			else {
+				for (int j = 1; j < students[index]->getSession()[i].subj.size(); j++) {
+					cout << "|   |" << left << setw(19) << students[index]->getSession()[i].subj[j].subj << "|" << left << setw(6) << students[index]->getSession()[i].subj[j].grade << "|" << endl;
+					if (j != students[index]->getSession()[i].subj.size() - 1) printSubjectLine();
+				}
+				printSessionLine();
+			}
+		}
 	}
 	cout << "Выберите действие:" << endl
-		<< "1. Редактировать существущие оценку/предмет" << endl
+		 << "1. Редактировать существущие оценку/предмет" << endl
+	 	 << "2. Добавить предмет/сессию" << endl
+		 << "3. Удалить сессию/предмет" << endl
+	     << "4. Назад" << endl;
+	int choice;
+	cin >> choice;
+	cin.clear();
+	std::cin.ignore(32767, '\n');
+	if (choice == 1) 
+	{
+		editGradeSubject(index);
+	}
+	if (choice == 2)
+	{
+		cout << "Выберите действие:" << endl
+			<< "1. Добавить сессию." << endl
+			<< "2. Добавить предмет" << endl
+		    << "3. Назад" << endl;
+		int deleteChoise;
+		cin >> deleteChoise;
+		if (deleteChoise == 1) {
+			addSession(index);
+		}
+		if (deleteChoise == 2) {
+			addSubject(index);
+		}
+		if (deleteChoise == 3) {
+			editSession(index);
+		}
+	}
+	if (choice == 3)
+	{
+		cout << "Выберите действие:" << endl
+			<< "1. Удалить сессию." << endl
+			<< "2. Удалить предмет" << endl
+			<< "3. Назад" << endl;
+		int deleteChoise;
+		cin >> deleteChoise;
+		if (deleteChoise == 1) {
+			deleteSession(index);
+		}
+		if (deleteChoise == 2) {
+			deleteSubject(index);
+		}
+		if (deleteChoise == 3) {
+			editSession(index);
+		}
+
+	}
+	if (choice == 4)
+	{
+		editPage(index);
+	}
+	editPage(index);
+}
+
+void Interface::deleteSession(int index)
+{
+	int sessionForDelete = 100;
+	while (sessionForDelete > 9) {
+		cout << "Введите номер сессии, которую хотите удалить: ";
+		cin >> sessionForDelete;
+	}
+	MyList<resSession> ses = students[index]->getSession();
+	for (int i = 0; i < ses.size(); i++) {
+		if (sessionForDelete == 1) {
+			ses.pop_front();
+			students[index]->setSession(ses);
+			return;
+		}
+		if (ses[i].sessionNumber == sessionForDelete) {
+			ses.popAt(i);
+			students[index]->setSession(ses);
+			return;
+		}
+	}
+}
+
+void Interface::deleteSubject(int index)
+{
+	int sessionForDelete = 100;
+	while (sessionForDelete > 9) {
+		cout << "Введите номер сессии, в которой необходимо удалить предмет: ";
+		cin >> sessionForDelete;
+	}
+
+	MyList<resSession> ses = students[index]->getSession();
+	for (int i = 0; i < ses.size(); i++) {
+		if (ses[i].sessionNumber == sessionForDelete) {
+			printSessionHead();
+			int count = 1;
+			for (int k = 0; k < ses[i].subj.size(); k++) {
+				cout << "| " << count << " |" << left << setw(19) << ses[i].subj[k].subj << "|" << left << setw(6) << ses[i].subj[k].grade << "|" << endl;
+				count++;
+				printSessionLine();
+			}
+			int choiceNum = 100;
+			while (choiceNum > count) {
+				cout << "Выберите какой по номеру предмет вы хотите удалить: ";
+				cin >> choiceNum;
+			}
+			ses[i].subj.popAt(choiceNum - 1);
+		}
+	}
+	students[index]->setSession(ses);
+	return;
+}
+void Interface::editGradeSubject(int index)
+{
+	int sessionNumber = 1000;
+	while (sessionNumber > 9) {
+		cout << "Введите номер сессии, оценку/предмет, в которой хотите отредактировать: ";
+		cin >> sessionNumber;
+	}
+	printSessionHead();
+	int count = 1;
+	for (int k = 0; k < students[index]->getSession()[sessionNumber - 1].subj.size(); k++) {
+		cout << "| " << count << " |" << left << setw(19) << students[index]->getSession()[sessionNumber - 1].subj[k].subj << "|" << left << setw(6) << students[index]->getSession()[sessionNumber - 1].subj[k].grade << "|" << endl;
+		count++;
+		printSessionLine();
+	}
+	int choiceNum = 100;
+	while (choiceNum > count) {
+		cout << "Выберите какой по номеру предмет вы хотите отредактировать: ";
+		cin >> choiceNum;
+	}
+	cout << "Выберите действие:" << endl
+		<< "1. Редактировать оценку" << endl
+		<< "2. Редактировать предмет" << endl
+		<< "3. Назад" << endl;
+	int choiceChange = 100;
+	while (choiceChange > 3) {
+		cin >> choiceChange;
+	}
+	if (choiceChange == 1) {
+
+		editGrade(index, sessionNumber, choiceNum);
+	}
+	if (choiceChange == 2) {
+		editSubject(index, sessionNumber, choiceNum);
+	}
+	if (choiceChange == 3) {
+		editSession(index);
+	}
+	editSession(index);
+}
+void Interface::editSubject(int index, int sessionNumber, int choiceNum)
+{
+	char* newSubject = new char[64];
+	cout << "Введите новый предмет: ";
+	cin >> newSubject;
+	students[index]->getSession()[sessionNumber - 1].subj[choiceNum-1].subj = newSubject;
+}
+void Interface::editGrade(int index, int sessionNumber, int choiceNum)
+{
+	int newGrade = 100;
+	while (newGrade > 6) {
+		cout << "Введите новую оценку(-1 - неявка, 0 - незачет, 1 - зачет): ";
+		cin >> newGrade;
+	}
+	students[index]->getSession()[sessionNumber - 1].subj[choiceNum-1].grade = newGrade;
 }
 
 void Interface::editPage(int index)
 {
+	system("cls");
 	printHeadForOneStudent();
 	cout << "|" << left << setw(7) << students[index]->getRecordBookId() << "|" << left << setw(14) << students[index]->getStudentName()
 		 << "|" << left << setw(20) << students[index]->getStudentSurName() << "|" << left << setw(19) << students[index]->getStudentPatronymic()
@@ -484,17 +758,18 @@ void Interface::editPage(int index)
 		 << "|" << left << setw(7) << students[index]->getDepartment() << "|" << left << setw(10) << students[index]->getGroup() << "|";
 	printLineForOneStudent();
 	cout << "Выберите действие:" << endl
-		 << "1. Изменить номер студенческого билета" << endl
-		 << "2. Изменить имя студента" << endl
-		 << "3. Изменить фамилию студента" << endl
-		 << "4. Изменить отчество студента" << endl
-		 << "5. Изменить пол студента" << endl
-		 << "6. Изменить дату рождения студента" << endl
-		 << "7. Изменить год поступления студента" << endl
-		 << "8. Изменить факультет студента" << endl
-		 << "9. Изменить кафедру студента" << endl
-		 << "10. Изменить группу студента" << endl
-		 << "11. Редактировать сессию" << endl;
+		<< "1. Изменить номер студенческого билета" << endl
+		<< "2. Изменить имя студента" << endl
+		<< "3. Изменить фамилию студента" << endl
+		<< "4. Изменить отчество студента" << endl
+		<< "5. Изменить пол студента" << endl
+		<< "6. Изменить дату рождения студента" << endl
+		<< "7. Изменить год поступления студента" << endl
+		<< "8. Изменить факультет студента" << endl
+		<< "9. Изменить кафедру студента" << endl
+		<< "10. Изменить группу студента" << endl
+		<< "11. Редактировать успеваемость" << endl
+		<< "12. Назад" << endl;
 	int choice;
 	cin >> choice;
 	cin.clear();
@@ -560,6 +835,9 @@ void Interface::editPage(int index)
 	}
 	if (choice == 11) {
 		editSession(index);
+	}
+	if (choice == 12) {
+		mainPage();
 	}
 	editPage(index);
 }

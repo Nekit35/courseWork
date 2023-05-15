@@ -30,6 +30,15 @@ class Interface
 	void printSessionLine();
 	void printSessionHead();
 	void printSubjectLine();
+	bool sessionParser(int index, int parsIndex);
+	void editGradeSubject(int index);
+	void editGrade(int index, int sessionNumber, int choiceNum);
+	void editSubject(int index, int sessionNumber, int choiceNum);
+	void deleteSession(int index);
+	void deleteSubject(int index);
+	void addSession(int index);
+	void addSubject(int index);
+	int checkSession(int index, int sessionNum);
 public:
 	Interface();
 	void StartPage();
