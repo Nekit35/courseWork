@@ -97,7 +97,7 @@ struct birthday
 			}
 			else return 1;
 		}
-		if (((month == 4) || (month == 6) || (month == 9) || (month == 11)) && ((year > 2023) && (year < 1950)))
+		if (((month == 4) || (month == 6) || (month == 9) || (month == 11)) && ((year < 2023) && (year > 1950)))
 		{
 			if ((day > 30) && (day < 1))
 			{

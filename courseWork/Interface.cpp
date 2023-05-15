@@ -15,6 +15,7 @@ void Interface::StartPage()
 	cin >> choice;
 	if (choice == '1') {
 		db.createDataBase();
+		mainPage();
 	}
 	if (choice == '2') {
 		cin.clear();
@@ -34,9 +35,9 @@ void Interface::interfaceChoiceUseDB()
 	db.setPathToDB(nameOfDB);
 	cout << "Введите пароль: ";
 	char password[128];
-	/*inputPassword(password);
+	inputPassword(password);
 	CryptoTools crypt(db.getPathToDB());
-	crypt.decrypt(password);*/
+	crypt.decrypt(password);
 	db.setPathToDB("db.bin");
 	students = db.getStudents();
 }
@@ -111,6 +112,7 @@ void Interface::mainPage()
 		break;
 	case '6':
 		saveAndCrypt();
+		exit(0);
 		break;
 	default:
 		mainPage();
@@ -120,7 +122,15 @@ void Interface::mainPage()
 
 void Interface::saveAndCrypt()
 {
-
+	db.createDataBase();
+	for (int i = 0; i < students.size(); i++) {
+		db.addToData(students[i]->getDataForDB());
+	}
+	cout << "Введите пароль для шифрования базы: ";
+	char password[128];
+	inputPassword(password);
+	CryptoTools crypt(db.getPathToDB());
+	crypt.encrypt(password);
 }
 
 void Interface::addStudent()
@@ -361,6 +371,11 @@ void Interface::deleteStudent()
 	char* recordBookId = new char[8];
 	cin >> recordBookId;
 	int poppedIndex = studentParser(recordBookId);
+	if (students.size() == 0 || poppedIndex == -1) {
+		cout << "Студента с таким номером студенческого билета не существует!" << endl;
+		mainPage();
+		_getch();
+	}
 	students.popAt(poppedIndex);
 	system("cls");
 	mainPage();
@@ -371,11 +386,18 @@ void Interface::editStudent()
 	system("chcp 1251");
 	system("cls");
 	printAllStudent();
-	cout << "Введите номер студенчекого билета студента, которого хотите отредактировать: ";
+	cout << "Введите номер студенчекого билета студента, которого хотите отредактировать или введите 0, если хотите вернуться: ";
 	char* recordBookId = new char[8];
 	cin >> recordBookId;
+	if (recordBookId[0] == '0') { mainPage(); }
 	system("cls");
-	editPage(studentParser(recordBookId));
+	int resOfParsing = studentParser(recordBookId);
+	if (resOfParsing == -1) {
+		cout << "Студента с таким номером студенческого билета не существует!" << endl;
+		_getch();
+		editStudent();
+	}
+	editPage(resOfParsing);
 }
 
 void Interface::printLineForOneStudent()

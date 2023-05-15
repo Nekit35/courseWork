@@ -10,6 +10,8 @@ void DataBase::addToData(const char* _studentData) {
 	file.close();
 
 }
+
+
 DataBase::DataBase() {
 	string standartPath = "db.bin";
 	pathToFile = standartPath;
