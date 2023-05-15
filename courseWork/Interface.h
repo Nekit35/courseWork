@@ -57,6 +57,6 @@ public:
 	void editBirthaday(int index);
 	void editSession(int index);
 	void doIndidualTask();
-	
+	void saveAndCrypt();
 };
 

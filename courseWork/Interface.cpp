@@ -110,11 +110,17 @@ void Interface::mainPage()
 		doIndidualTask();
 		break;
 	case '6':
+		saveAndCrypt();
 		break;
 	default:
 		mainPage();
 		break;
 	}
+}
+
+void Interface::saveAndCrypt()
+{
+
 }
 
 void Interface::addStudent()

@@ -4,9 +4,9 @@ void DataBase::createDataBase() {
 	oFile.close();
 }
 void DataBase::addToData(const char* _studentData) {
-	ofstream file;
-	file.open(pathToFile, ios::app | ios::binary);
-	file << _studentData;
+	ofstream file(pathToFile, ios::binary | ios::app);
+	file.write(_studentData, strlen(_studentData));
+	file.flush();
 	file.close();
 
 }
@@ -18,18 +18,16 @@ char * DataBase::getDataFromDB()
 {
 	char* result = new char[102400];
 	string line;
-	ifstream file;
-	file.open(pathToFile);
-	file.seekg(0);
-	getline(file, line);
+	fstream file;
+	file.open(pathToFile, std::ios::binary | std::ios::in);
+	file.read(result, 102400);
 	file.close();
-	const char* res = line.c_str();
-	int i = 0;
-	while (res[i] != '\0') {
-		result[i] = res[i];
-		i++;
+	for (int i = 0; i < 102400; i++) {
+		if (result[i] == result[i + 1] && result[i] == result[i + 2] && result[i] == result[i + 3] && result[i] == result[i + 4] && result[i] == result[i + 5] && result[i] == result[i + 6]) {
+			result[i] = '\0';
+			break;
+		}
 	}
-	result[i] = '\0';
 	return result;
 }
 MyList<char*> DataBase::getStrStudents()
