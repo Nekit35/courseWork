@@ -107,6 +107,7 @@ void Interface::mainPage()
 		deleteStudent();
 		break;
 	case '5':
+		doIndidualTask();
 		break;
 	case '6':
 		break;
@@ -840,4 +841,76 @@ void Interface::editPage(int index)
 		mainPage();
 	}
 	editPage(index);
+}
+
+void Interface::doIndidualTask()
+{
+	system("cls");
+	cout << "Индивидуальное задание:" << endl
+	 	 << "Распечатать всех студентов, у которых за все время обучения не более 25 % оценок " << endl
+	 	 << "a) 3;" << endl
+	 	 << "б) 3 и 4;" << endl
+	 	 << "в) 5;" << endl
+		 << "г) 3 и 5;" << endl
+		 << "д) 4 и 5;" << endl
+		 << "Выберите вариант выполнения задания, если хотите вернуться в главное меню, нажмите 0 >";
+	char choice='f';
+	Filter filter(students);
+	while (true) {
+		cin >> choice;
+		if (choice == 'а' || choice == 'б' || choice == 'в' || choice == 'г' || choice == 'д' || choice == '0') {
+			break;
+		}
+		cout << "Вы ввели что-то не то, попробуйте еще раз!" << endl;
+	}
+	switch (choice)
+	{
+	case 'а':
+		printFilteredStudents(filter.filter3());
+		break;
+	case 'б':
+		printFilteredStudents(filter.filter34());
+		break;
+	case 'в':
+		printFilteredStudents(filter.filter5());
+		break;
+	case 'г':
+		printFilteredStudents(filter.filter35());
+		break;
+	case 'д':
+		printFilteredStudents(filter.filter45());
+		break;
+	case '0':
+		mainPage();
+		break;
+	default:
+		break;
+	}
+	doIndidualTask();
+}
+
+void Interface::printFilteredLine()
+{
+	cout << "|-------|--------------|--------------------|--------------------|" << endl;
+}
+
+void Interface::printFilteredStudents(MyList<Student*> filteredStudents)
+{
+	system("cls");
+	
+	int studentsCount = filteredStudents.size();
+	if (studentsCount == 0) {
+		cout << "Студента по заданному фильтру не найдены!";
+		_getch();
+		return;
+	}
+	cout << "|-------|--------------|--------------------|--------------------|" << endl
+		 << "|№ст.бил|     Имя      |      Фамилия       |      Отчество      |" << endl
+		 << "|-------|--------------|--------------------|--------------------|" << endl;
+	for (int i = 0; i < studentsCount; i++) {
+		cout << "|" << left << setw(7) << students[i]->getRecordBookId() << "|" << left << setw(14) << students[i]->getStudentName() << "|" << left << setw(20) << students[i]->getStudentSurName() << "|" << left << setw(20) << students[i]->getStudentPatronymic() << "|" << endl;
+		printFilteredLine();
+	}
+	_getch();
+	doIndidualTask();
 }

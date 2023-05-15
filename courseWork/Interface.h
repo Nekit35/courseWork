@@ -11,6 +11,7 @@
 #include "MyList.h"
 #include "Students.h"
 #include "structures.h"
+#include "Filter.h"
 
 #define VK_BKSPC   0x08
 #define VK_RETURN  0x0D
@@ -39,6 +40,8 @@ class Interface
 	void addSession(int index);
 	void addSubject(int index);
 	int checkSession(int index, int sessionNum);
+	void printFilteredStudents(MyList<Student*> filteredStudents);
+	void printFilteredLine();
 public:
 	Interface();
 	void StartPage();
@@ -53,5 +56,7 @@ public:
 	void editGender(int index);
 	void editBirthaday(int index);
 	void editSession(int index);
+	void doIndidualTask();
+	
 };
 

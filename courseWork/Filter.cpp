@@ -8,10 +8,14 @@ MyList<Student*> Filter::filter3()
 		int countOfThree = 0;
 		int countOfGrades = 0;
 		for (int i = 0; i < countOfSessions; i++) {
+			for (int j = 0; j < studentsResSession[i].subj.size(); j++) {
+				if (studentsResSession[i].subj[j].grade != -1 || studentsResSession[i].subj[j].grade != 0 || studentsResSession[i].subj[j].grade != 1) {
+					countOfGrades++;
+				}
+			}
 			int countOfSubject = studentsResSession[i].subj.size();
 			for (int j = 0; j < countOfSubject; j++) {
 				if (studentsResSession[i].subj[j].grade == 3) countOfThree++;
-				countOfGrades++;
 			}
 		}
 		if ((float)countOfThree / countOfGrades <= 0.25) res.push_back(students[k]);
@@ -30,7 +34,6 @@ MyList<Student*> Filter::filter34()
 			int countOfSubject = studentsResSession[i].subj.size();
 			for (int j = 0; j < countOfSubject; j++) {
 				if ((studentsResSession[i].subj[j].grade == 3)|| (studentsResSession[i].subj[j].grade == 4)) countOfThreeAndFour++;
-				countOfGrades++;
 			}
 		}
 		if ((float)countOfThreeAndFour / countOfGrades <= 0.25) res.push_back(students[k]);
@@ -46,10 +49,14 @@ MyList<Student*> Filter::filter5()
 		int countOfFive = 0;
 		int countOfGrades = 0;
 		for (int i = 0; i < countOfSessions; i++) {
+			for (int j = 0; j < studentsResSession[i].subj.size(); j++) {
+				if (studentsResSession[i].subj[j].grade != -1 || studentsResSession[i].subj[j].grade != 0 || studentsResSession[i].subj[j].grade != 1) {
+					countOfGrades++;
+				}
+			}
 			int countOfSubject = studentsResSession[i].subj.size();
 			for (int j = 0; j < countOfSubject; j++) {
-				if (studentsResSession[i].subj[j].grade == 4) countOfFive++;
-				countOfGrades++;
+				if (studentsResSession[i].subj[j].grade == 5) countOfFive++;
 			}
 		}
 		if ((float)countOfFive / countOfGrades <= 0.25) res.push_back(students[k]);
@@ -65,10 +72,14 @@ MyList<Student*> Filter::filter35()
 		int countOfThreeAndFive = 0;
 		int countOfGrades = 0;
 		for (int i = 0; i < countOfSessions; i++) {
+			for (int j = 0; j < studentsResSession[i].subj.size(); j++) {
+				if (studentsResSession[i].subj[j].grade != -1 || studentsResSession[i].subj[j].grade != 0 || studentsResSession[i].subj[j].grade != 1) {
+					countOfGrades++;
+				}
+			}
 			int countOfSubject = studentsResSession[i].subj.size();
 			for (int j = 0; j < countOfSubject; j++) {
 				if ((studentsResSession[i].subj[j].grade == 3) || (studentsResSession[i].subj[j].grade == 5)) countOfThreeAndFive++;
-				countOfGrades++;
 			}
 		}
 		if ((float)countOfThreeAndFive / countOfGrades <= 0.25) res.push_back(students[k]);
@@ -84,10 +95,14 @@ MyList<Student*> Filter::filter45()
 		int countOfFourAndFive = 0;
 		int countOfGrades = 0;
 		for (int i = 0; i < countOfSessions; i++) {
+			for (int j = 0; j < studentsResSession[i].subj.size(); j++) {
+				if (studentsResSession[i].subj[j].grade != -1 || studentsResSession[i].subj[j].grade != 0 || studentsResSession[i].subj[j].grade != 1) {
+					countOfGrades++;
+				}
+			}
 			int countOfSubject = studentsResSession[i].subj.size();
 			for (int j = 0; j < countOfSubject; j++) {
 				if ((studentsResSession[i].subj[j].grade == 4) || (studentsResSession[i].subj[j].grade == 5)) countOfFourAndFive++;
-				countOfGrades++;
 			}
 		}
 		if ((float)countOfFourAndFive / countOfGrades <= 0.25) res.push_back(students[k]);
